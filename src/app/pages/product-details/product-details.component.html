@@ -1,0 +1,12 @@
+<div *ngIf="product" class="container">
+    <mat-card>
+      <img mat-card-image [src]="product.imageUrl" alt="{{ product.name }}">
+      <mat-card-title>{{ product.name }}</mat-card-title>
+      <mat-card-content>
+        <p>{{ product.description }}</p>
+        <p><strong>${{ product.price }}</strong></p>
+      </mat-card-content>
+      <button mat-button color="primary" (click)="addToCart()">Add to Cart</button>
+    </mat-card>
+  </div>
+  

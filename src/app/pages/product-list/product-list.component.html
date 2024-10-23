@@ -1,0 +1,18 @@
+<div class="container">
+    <h1>Products</h1>
+    <div class="row">
+      <div *ngFor="let product of products" class="col-md-4 mb-4">
+        <mat-card>
+          <img mat-card-image [src]="product.imageUrl" alt="{{product.name}}">
+          <mat-card-title>{{ product.name }}</mat-card-title>
+          <mat-card-content>
+            <p>{{ product.description }}</p>
+            <p><strong>${{ product.price }}</strong></p>
+          </mat-card-content>
+          <button mat-button color="primary" (click)="addToCart(product)">Add to Cart</button>
+          <button mat-button [routerLink]="['/products', product.id]">View Details</button>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+  

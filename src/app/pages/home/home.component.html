@@ -1,0 +1,111 @@
+<div class="homepage">
+    <!-- Hero Section -->
+    <section class="hero-section position-relative">
+      <img [src]="featuredProducts[0].imageUrl || 'assets/placeholder.jpg'" class="w-100 hero-image" alt="Fashion Banner">
+      <div class="hero-overlay d-flex align-items-center justify-content-center text-center">
+        <div class="container">
+          <h1 class="display-3 text-white fw-bold mb-4">New Season Arrivals</h1>
+          <p class="lead text-white mb-4">CHECK OUT ALL THE TRENDS</p>
+          <button mat-raised-button color="primary" class="px-4 py-2">
+            Shop Now
+            <mat-icon>arrow_forward</mat-icon>
+          </button>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Features Section -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <div class="row g-4">
+          <div *ngFor="let feature of features" class="col-md-3">
+            <mat-card class="h-100">
+              <mat-card-content class="d-flex align-items-center p-3">
+                <mat-icon class="feature-icon me-3" color="primary">{{feature.icon}}</mat-icon>
+                <div>
+                  <h3 class="h5 mb-1">{{feature.title}}</h3>
+                  <p class="mb-0 text-muted">{{feature.description}}</p>
+                </div>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Categories Section -->
+    <section class="py-5">
+      <div class="container">
+        <h2 class="text-center mb-5">Shop by Category</h2>
+        <div class="row g-4">
+          <div *ngFor="let category of categories" class="col-md-4">
+            <mat-card class="category-card" [routerLink]="['/category', category.id]">
+              <img [src]="category.imageUrl" [alt]="category.name" mat-card-image>
+              <mat-card-content class="category-content p-3">
+                <h3 class="h4 mb-2">{{category.name}}</h3>
+                <p class="mb-0 text-muted">{{category.productCount}} Products</p>
+              </mat-card-content>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Featured Products -->
+    <section class="py-5 bg-light">
+      <div class="container">
+        <h2 class="text-center mb-5">Featured Products</h2>
+        <div class="row g-4">
+            <div *ngFor="let product of featuredProducts" class="col-md-3">
+                <mat-card class="product-card h-100">
+                  <img [src]="product.imageUrl" [alt]="product.name" mat-card-image>
+                  <mat-card-content class="p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                      <h3 class="h6 mb-0 text-dark">{{product.name}}</h3>
+                      <span class="badge bg-primary">${{product.price}}</span>
+                    </div>
+                    <div class="rating mb-2">
+                      <mat-icon *ngFor="let star of getStarArray(product.rating)" color="accent">star</mat-icon>
+                    </div>
+                    <p class="text-secondary small mb-0">{{product.description | slice:0:100}}...</p>
+                    
+                    <!-- Discount badge if available -->
+                    <div *ngIf="product.discount" class="discount-badge">
+                      -{{product.discount}}% OFF
+                    </div>
+                  </mat-card-content>
+                  <mat-card-actions class="p-3 pt-0">
+                    <button mat-button color="primary">
+                      <mat-icon>shopping_cart</mat-icon> Add to Cart
+                    </button>
+                    <button mat-icon-button color="warn">
+                      <mat-icon>favorite_border</mat-icon>
+                    </button>
+                  </mat-card-actions>
+                </mat-card>
+              </div>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Newsletter Section -->
+    <section class="py-5 bg-primary text-white">
+      <div class="container text-center">
+        <h2 class="mb-4">Subscribe to Our Newsletter</h2>
+        <div class="row justify-content-center">
+          <div class="col-md-6">
+            <mat-card class="p-4">
+              <form class="d-flex gap-2">
+                <mat-form-field appearance="outline" class="w-100">
+                  <mat-label>Email address</mat-label>
+                  <input matInput placeholder="Enter your email">
+                </mat-form-field>
+                <button mat-raised-button color="accent">Subscribe</button>
+              </form>
+            </mat-card>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+  
