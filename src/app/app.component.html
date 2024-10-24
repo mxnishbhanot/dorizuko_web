@@ -1,39 +1,44 @@
 <mat-toolbar class="navbar">
-  <div class="container">
-    <div class="d-flex justify-content-between align-items-center w-100">
+  <div class="container mx-auto px-4">
+    <div class="flex items-center justify-between w-full h-16">
+      <!-- Brand -->
       <a routerLink="/" class="text-decoration-none">
         <span class="brand">DORIZUKO</span>
       </a>
       
-      <!-- Search -->
-      <div class="search-bar">
-        <mat-form-field appearance="outline" class="m-0">
-          <mat-icon matPrefix>search</mat-icon>
-          <input matInput placeholder="Search products...">
-        </mat-form-field>
+      <!-- Search Bar -->
+      <div class="search-container">
+        <div class="search-wrapper">
+          <mat-icon class="search-icon">search</mat-icon>
+          <input 
+            type="text" 
+            placeholder="Search products..." 
+            class="search-input"
+          >
+        </div>
       </div>
 
-      <!-- Navigation Items -->
+      <!-- Navigation Actions -->
       <div class="nav-actions">
-        <button mat-icon-button [matMenuTriggerFor]="userMenu" aria-label="User menu">
-          <mat-icon>person</mat-icon>
+        <button mat-icon-button [matMenuTriggerFor]="userMenu" class="action-button">
+          <mat-icon>person_outline</mat-icon>
         </button>
-        <mat-menu #userMenu="matMenu">
-          <button mat-menu-item>
+        <mat-menu #userMenu="matMenu" class="user-menu">
+          <button mat-menu-item class="menu-item">
             <mat-icon>login</mat-icon>
             <span>Login</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item class="menu-item">
             <mat-icon>person_add</mat-icon>
             <span>Register</span>
           </button>
-          <button mat-menu-item>
+          <button mat-menu-item class="menu-item">
             <mat-icon>settings</mat-icon>
             <span>Settings</span>
           </button>
         </mat-menu>
 
-        <button mat-icon-button [matBadge]="cartItemCount" matBadgeColor="warn">
+        <button mat-icon-button class="action-button" [matBadge]="cartItemCount" matBadgeColor="warn">
           <mat-icon>shopping_cart</mat-icon>
         </button>
       </div>
@@ -71,7 +76,7 @@
     </div>
     <hr class="my-4">
     <div class="text-center text-white-50">
-      <small>&copy; 2024 Fashion Store. All rights reserved.</small>
+      <small>&copy; 2024 Dorizuko Clothings. All rights reserved.</small>
     </div>
   </div>
 </footer>

@@ -23,8 +23,8 @@
               <mat-card-content class="d-flex align-items-center p-3">
                 <mat-icon class="feature-icon me-3" color="primary">{{feature.icon}}</mat-icon>
                 <div>
-                  <h3 class="h5 mb-1">{{feature.title}}</h3>
-                  <p class="mb-0 text-muted">{{feature.description}}</p>
+                  <h3 class="h5 text-light mb-1 text-break">{{feature.title}}</h3>
+                  <p class="mb-0 text-secondary">{{feature.description}}</p>
                 </div>
               </mat-card-content>
             </mat-card>
@@ -42,7 +42,7 @@
             <mat-card class="category-card" [routerLink]="['/category', category.id]">
               <img [src]="category.imageUrl" [alt]="category.name" mat-card-image>
               <mat-card-content class="category-content p-3">
-                <h3 class="h4 mb-2">{{category.name}}</h3>
+                <h3 class="h4 text-light mb-2">{{category.name}}</h3>
                 <p class="mb-0 text-muted">{{category.productCount}} Products</p>
               </mat-card-content>
             </mat-card>
@@ -61,7 +61,7 @@
                   <img [src]="product.imageUrl" [alt]="product.name" mat-card-image>
                   <mat-card-content class="p-3">
                     <div class="d-flex justify-content-between align-items-start mb-2">
-                      <h3 class="h6 mb-0 text-dark">{{product.name}}</h3>
+                      <h3 class="h6 mb-0 text-light">{{product.name}}</h3>
                       <span class="badge bg-primary">${{product.price}}</span>
                     </div>
                     <div class="rating mb-2">
@@ -88,20 +88,116 @@
       </div>
     </section>
   
-    <!-- Newsletter Section -->
-    <section class="py-5 bg-primary text-white">
-      <div class="container text-center">
-        <h2 class="mb-4">Subscribe to Our Newsletter</h2>
-        <div class="row justify-content-center">
+    <!-- Custom Design Section -->
+    <section class="custom-design-section py-5">
+      <div class="container">
+        <div class="row align-items-center">
           <div class="col-md-6">
-            <mat-card class="p-4">
-              <form class="d-flex gap-2">
-                <mat-form-field appearance="outline" class="w-100">
-                  <mat-label>Email address</mat-label>
-                  <input matInput placeholder="Enter your email">
-                </mat-form-field>
-                <button mat-raised-button color="accent">Subscribe</button>
-              </form>
+            <div class="custom-design-content">
+              <h2 class="display-6 mb-3">Create Your Custom Design</h2>
+              <p class="lead mb-4">Want something unique? Share your vision with us!</p>
+              <div class="features-list mb-4">
+                <div class="feature-item">
+                  <mat-icon color="primary">palette</mat-icon>
+                  <span>Custom Prints</span>
+                </div>
+                <div class="feature-item">
+                  <mat-icon color="primary">straighten</mat-icon>
+                  <span>Perfect Fit</span>
+                </div>
+                <div class="feature-item">
+                  <mat-icon color="primary">style</mat-icon>
+                  <span>Unique Styles</span>
+                </div>
+                <div class="feature-item">
+                  <mat-icon color="primary">local_shipping</mat-icon>
+                  <span>Fast Delivery</span>
+                </div>
+              </div>
+              <button mat-raised-button color="primary" (click)="openCustomDialog()">
+                Start Custom Design
+              </button>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <mat-card class="custom-design-form">
+              <mat-card-content>
+                <form [formGroup]="customDesignForm" (ngSubmit)="onSubmitDesign()" class="custom-form">
+                  <h3 class="h4 mb-4 text-light">Tell us about your design</h3>
+                  
+                  <!-- Design Type -->
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Design Type</mat-label>
+                    <mat-select formControlName="designType">
+                      <mat-option value="print">Custom Print</mat-option>
+                      <mat-option value="embroidery">Embroidery</mat-option>
+                      <mat-option value="pattern">Custom Pattern</mat-option>
+                      <mat-option value="full">Full Custom Design</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+    
+                  <!-- Garment Type -->
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Garment Type</mat-label>
+                    <mat-select formControlName="garmentType">
+                      <mat-option value="tshirt">T-Shirt</mat-option>
+                      <mat-option value="hoodie">Hoodie</mat-option>
+                      <mat-option value="jacket">Jacket</mat-option>
+                      <mat-option value="pants">Pants</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+    
+                  <!-- Size Range -->
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Size Range</mat-label>
+                    <mat-select formControlName="sizeRange" multiple>
+                      <mat-option value="xs">XS</mat-option>
+                      <mat-option value="s">S</mat-option>
+                      <mat-option value="m">M</mat-option>
+                      <mat-option value="l">L</mat-option>
+                      <mat-option value="xl">XL</mat-option>
+                      <mat-option value="xxl">XXL</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+    
+                  <!-- Quantity -->
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Estimated Quantity</mat-label>
+                    <input matInput type="number" formControlName="quantity" min="1">
+                  </mat-form-field>
+    
+                  <!-- Design Description -->
+                  <mat-form-field appearance="outline" class="w-100 mb-3">
+                    <mat-label>Design Description</mat-label>
+                    <textarea matInput formControlName="description" rows="4" 
+                      placeholder="Describe your design idea, including colors, styles, and any specific requirements..."></textarea>
+                  </mat-form-field>
+    
+                  <!-- Contact Information -->
+                  <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Your Name</mat-label>
+                        <input matInput formControlName="name">
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-6">
+                      <mat-form-field appearance="outline" class="w-100">
+                        <mat-label>Email</mat-label>
+                        <input matInput formControlName="email" type="email">
+                      </mat-form-field>
+                    </div>
+                  </div>
+    
+                  <!-- Submit Button -->
+                  <div class="text-end">
+                    <button mat-raised-button color="primary" type="submit" 
+                      [disabled]="!customDesignForm.valid">
+                      Submit Design Request
+                    </button>
+                  </div>
+                </form>
+              </mat-card-content>
             </mat-card>
           </div>
         </div>
