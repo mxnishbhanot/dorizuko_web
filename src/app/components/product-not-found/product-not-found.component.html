@@ -1,0 +1,13 @@
+<div class="no-products-container" [@fadeIn]>
+    <mat-card class="text-center p-5">
+      <div class="mb-4">
+        <mat-icon class="no-results-icon">search_off</mat-icon>
+      </div>
+      <h2 class="mb-3">No Products Found</h2>
+      <p class="text-muted mb-4">{{ getMessage() }}</p>
+      <button mat-raised-button color="primary" (click)="onClearFilters()">
+        <mat-icon>filter_alt_off</mat-icon>
+        Clear All Filters
+      </button>
+    </mat-card>
+  </div>

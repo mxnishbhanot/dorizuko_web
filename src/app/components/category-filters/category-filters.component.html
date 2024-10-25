@@ -1,0 +1,9 @@
+<mat-form-field appearance="outline" class="w-100">
+    <mat-label>Category</mat-label>
+    <mat-select [(value)]="selectedCategory" (selectionChange)="onCategoryChange($event)">
+      <mat-option value="">All Categories</mat-option>
+      <mat-option value="shirts">Shirts</mat-option>
+      <mat-option value="pants">Pants</mat-option>
+      <mat-option value="dresses">Dresses</mat-option>
+    </mat-select>
+  </mat-form-field>

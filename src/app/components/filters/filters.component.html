@@ -1,1 +1,17 @@
-<p>filters works!</p>
+<div class="row mb-4">
+    <div class="col-md-4">
+      <app-product-search
+        (search)="onSearchChange($event)">
+      </app-product-search>
+    </div>
+    <div class="col-md-4">
+      <app-category-filters
+        (categoryChange)="onCategoryChange($event)">
+      </app-category-filters>
+    </div>
+    <div class="col-md-4">
+      <app-sorting
+        (sortChange)="onSortChange($event)">
+      </app-sorting>
+    </div>
+  </div>

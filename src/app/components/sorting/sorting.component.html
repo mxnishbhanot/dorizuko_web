@@ -1,1 +1,8 @@
-<p>sorting works!</p>
+<mat-form-field appearance="outline" class="w-100">
+    <mat-label>Sort By</mat-label>
+    <mat-select [(value)]="sortBy" (selectionChange)="onSortChange($event)">
+      <mat-option value="price-asc">Price: Low to High</mat-option>
+      <mat-option value="price-desc">Price: High to Low</mat-option>
+      <mat-option value="name">Name</mat-option>
+    </mat-select>
+  </mat-form-field>
