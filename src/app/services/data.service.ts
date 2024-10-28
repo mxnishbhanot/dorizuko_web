@@ -22,7 +22,8 @@ export class DataService {
       inStock: true,
       brand: faker.commerce.department(),
       sizes: ['S', 'XL', 'XXL'],
-      colors: ['#ffffff', '#eb5234', '#34ebdc']
+      colors: ['#ffffff', '#eb5234', '#34ebdc'],
+      images: []
     }));
     return of(products);
   }
@@ -98,6 +99,7 @@ export interface Product {
   brand: string;
   sizes: string[];
   colors: string[];
+  images: {url: string, alt: string}[];
 }
 
 export interface Category {
@@ -118,3 +120,10 @@ export interface Item  {
   price: number;
   name: string;
 };
+
+export interface CartItem {
+  product: Product;
+  quantity: number;
+  selectedSize?: string;
+  selectedColor?: string;
+}

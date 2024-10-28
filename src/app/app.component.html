@@ -24,11 +24,11 @@
           <mat-icon>person_outline</mat-icon>
         </button>
         <mat-menu #userMenu="matMenu" class="user-menu">
-          <button mat-menu-item class="menu-item">
+          <button mat-menu-item class="menu-item" (click)="openModal('login')">
             <mat-icon>login</mat-icon>
             <span>Login</span>
           </button>
-          <button mat-menu-item class="menu-item">
+          <button mat-menu-item class="menu-item" (click)="openModal('signup')">
             <mat-icon>person_add</mat-icon>
             <span>Register</span>
           </button>
@@ -38,7 +38,7 @@
           </button>
         </mat-menu>
 
-        <button mat-icon-button class="action-button" [matBadge]="cartItemCount" matBadgeColor="warn">
+        <button mat-icon-button class="action-button" [routerLink]="['/cart']" [matBadge]="cartItemCount" matBadgeColor="warn">
           <mat-icon>shopping_cart</mat-icon>
         </button>
       </div>

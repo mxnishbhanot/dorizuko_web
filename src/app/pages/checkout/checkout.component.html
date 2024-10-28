@@ -1,13 +1,169 @@
-<div class="container">
-    <h1>Checkout</h1>
-    <div *ngIf="items.length === 0">Your cart is empty.</div>
-    <div *ngIf="items.length > 0">
-      <div *ngFor="let item of items" class="row mb-3">
-        <div class="col-md-8">{{ item.name }}</div>
-        <div class="col-md-4">${{ item.price }}</div>
+<div class="container-fluid bg-light py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-10">
+        <mat-card class="checkout-card">
+          <mat-card-header>
+            <mat-card-title>
+              <h2 class="mb-4 text-white">Checkout</h2>
+            </mat-card-title>
+          </mat-card-header>
+          
+          <mat-card-content>
+            <form [formGroup]="checkoutForm" (ngSubmit)="onSubmit()">
+              <!-- Personal Information -->
+              <div class="section-title">
+                <h3 class="mb-4">Personal Information</h3>
+              </div>
+              
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" required>
+                    <mat-error *ngIf="checkoutForm.get('firstName')?.hasError('required')">
+                      First name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" required>
+                    <mat-error *ngIf="checkoutForm.get('lastName')?.hasError('required')">
+                      Last name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required type="email">
+                    <mat-error *ngIf="checkoutForm.get('email')?.hasError('required')">
+                      Email is required
+                    </mat-error>
+                    <mat-error *ngIf="checkoutForm.get('email')?.hasError('email')">
+                      Please enter a valid email
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Phone Number</mat-label>
+                    <input matInput formControlName="phone" required>
+                    <mat-error *ngIf="checkoutForm.get('phone')?.hasError('required')">
+                      Phone number is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Billing Address -->
+              <div class="section-title mt-4">
+                <h3 class="mb-4">Billing Address</h3>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Street Address</mat-label>
+                    <input matInput formControlName="street" required>
+                    <mat-error *ngIf="checkoutForm.get('street')?.hasError('required')">
+                      Street address is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>City</mat-label>
+                    <input matInput formControlName="city" required>
+                    <mat-error *ngIf="checkoutForm.get('city')?.hasError('required')">
+                      City is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-3">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>State</mat-label>
+                    <mat-select formControlName="state" required>
+                      <mat-option value="CA">California</mat-option>
+                      <mat-option value="NY">New York</mat-option>
+                      <!-- Add more states as needed -->
+                    </mat-select>
+                    <mat-error *ngIf="checkoutForm.get('state')?.hasError('required')">
+                      State is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-3">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>ZIP Code</mat-label>
+                    <input matInput formControlName="zipCode" required>
+                    <mat-error *ngIf="checkoutForm.get('zipCode')?.hasError('required')">
+                      ZIP code is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <!-- Payment Information -->
+              <div class="section-title mt-4">
+                <h3 class="mb-4">Payment Information</h3>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Card Number</mat-label>
+                    <input matInput formControlName="cardNumber" required>
+                    <mat-error *ngIf="checkoutForm.get('cardNumber')?.hasError('required')">
+                      Card number is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Expiration Date</mat-label>
+                    <input matInput formControlName="expirationDate" placeholder="MM/YY" required>
+                    <mat-error *ngIf="checkoutForm.get('expirationDate')?.hasError('required')">
+                      Expiration date is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+                <div class="col-md-6">
+                  <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>CVV</mat-label>
+                    <input matInput formControlName="cvv" required maxlength="4">
+                    <mat-error *ngIf="checkoutForm.get('cvv')?.hasError('required')">
+                      CVV is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="d-grid gap-2 mt-4">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!checkoutForm.valid">
+                  Place Order
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
       </div>
-      <h3>Total: ${{ total }}</h3>
-      <button mat-button color="primary" (click)="checkout()">Proceed to Payment</button>
     </div>
   </div>
-  
+</div>
