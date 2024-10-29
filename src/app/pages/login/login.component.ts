@@ -11,6 +11,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SignupComponent } from '../signup/signup.component';
+import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
 
 @Component({
   selector: 'app-login',
@@ -70,6 +71,18 @@ export class LoginComponent {
       width: '400px',
       height: 'auto',
       panelClass: 'signup-modal-panel',
+      disableClose: true,
+      autoFocus: false
+    });
+  }
+  openForgotPasswordModal(event: Event){
+    event.preventDefault();
+    this.dialogRef.close();
+    // this.loginService.openLoginModal();
+    this.dialog.open(ForgotPasswordComponent, {
+      width: '400px',
+      height: 'auto',
+      panelClass: 'forgot-pass-modal-panel',
       disableClose: true,
       autoFocus: false
     });

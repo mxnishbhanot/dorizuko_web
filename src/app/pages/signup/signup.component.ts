@@ -72,7 +72,7 @@ export class SignupComponent {
     this.dialogRef.close();
     // this.loginService.openLoginModal();
     this.dialog.open(LoginComponent, {
-      width: '400px',
+      width: '600px',
       height: 'auto',
       panelClass: 'signup-modal-panel',
       disableClose: true,
