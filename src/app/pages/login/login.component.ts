@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms'
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -12,6 +12,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { SignupComponent } from '../signup/signup.component';
 import { ForgotPasswordComponent } from '../forgot-password/forgot-password.component';
+import { AuthService } from '../../services/auth.service';
+import { AlertService } from '../../services/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +30,9 @@ export class LoginComponent {
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<LoginComponent>,
-    private snackBar: MatSnackBar,
-    private dialog: MatDialog
+    private alertService: AlertService,
+    private dialog: MatDialog,
+    private authService: AuthService
 
   ) {
     this.loginForm = this.fb.group({
@@ -39,23 +42,25 @@ export class LoginComponent {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
-  onSubmit() {
+  async onSubmit(): Promise<void> {
     if (this.loginForm.valid && !this.isLoading) {
       this.isLoading = true;
-      
-      // Simulate API call
-      setTimeout(() => {
+      try {
+        const isLoggedin = await this.authService.login(this.loginForm.value);
+        if (isLoggedin) {
+          this.dialogRef.close(this.loginForm.value);
+          this.alertService.success('Login successful!');
+        } else {
+          this.alertService.error('Please enter valid credentials');
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        this.alertService.error('An error occurred. Please try again later.');
+      } finally {
         this.isLoading = false;
-        // Handle successful login
-        this.snackBar.open('Login successful!', 'Close', {
-          duration: 3000,
-          horizontalPosition: 'end',
-          verticalPosition: 'top'
-        });
-        this.dialogRef.close(this.loginForm.value);
-      }, 1500);
+      }
     }
   }
 
@@ -63,24 +68,24 @@ export class LoginComponent {
     this.dialogRef.close();
   }
 
-  openSignupModal(event: Event){
+  openSignupModal(event: Event) {
     event.preventDefault();
     this.dialogRef.close();
     // this.loginService.openLoginModal();
     this.dialog.open(SignupComponent, {
-      width: '400px',
+      width: '600px',
       height: 'auto',
       panelClass: 'signup-modal-panel',
       disableClose: true,
       autoFocus: false
     });
   }
-  openForgotPasswordModal(event: Event){
+  openForgotPasswordModal(event: Event) {
     event.preventDefault();
     this.dialogRef.close();
     // this.loginService.openLoginModal();
     this.dialog.open(ForgotPasswordComponent, {
-      width: '400px',
+      width: '600px',
       height: 'auto',
       panelClass: 'forgot-pass-modal-panel',
       disableClose: true,
